@@ -128,8 +128,13 @@ class SlackPlugin extends MantisPlugin {
         $project = project_get_name($bug->project_id);
         $summary = $this->format_summary($bug);
         $reporter = '@' . user_get_name(auth_get_current_user_id());
-        $note = bugnote_get_text($bugnote_id);
-        $note = implode("\n", array_slice(explode("\n", $note), 0, 2));
+        $note_full = explode("\n", bugnote_get_text($bugnote_id));
+        $note = array_slice($note_full, 0, 2);
+        if(sizeof($note_full) > 2)
+        {
+            $note[] = "...";
+        }
+        $note = implode("\n", $note);
         $msg = sprintf(plugin_lang_get($event === 'EVENT_BUGNOTE_ADD' ? 'bugnote_created' : 'bugnote_updated'),
             $project, $reporter, $url, $summary, $note
         );
