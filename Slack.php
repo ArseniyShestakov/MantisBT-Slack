@@ -73,7 +73,7 @@ class SlackPlugin extends MantisPlugin {
             'EVENT_BUG_DELETED' => 'bug_deleted',
             'EVENT_BUG_ACTION' => 'bug_action',
             'EVENT_BUGNOTE_ADD' => 'bugnote_add_edit',
-            'EVENT_BUGNOTE_EDIT' => 'bugnote_add_edit',
+//            'EVENT_BUGNOTE_EDIT' => 'bugnote_add_edit',
             'EVENT_BUGNOTE_DELETED' => 'bugnote_deleted',
             'EVENT_BUGNOTE_ADD_FORM' => 'bugnote_add_form',
         );
@@ -130,7 +130,7 @@ class SlackPlugin extends MantisPlugin {
         $reporter = '@' . user_get_name(auth_get_current_user_id());
         $note = bugnote_get_text($bugnote_id);
         $msg = sprintf(plugin_lang_get($event === 'EVENT_BUGNOTE_ADD' ? 'bugnote_created' : 'bugnote_updated'),
-            $project, $reporter, $url, $summary, $note
+            $project, $reporter, $url, $summary, ''//$note
         );
         $this->notify($msg, $this->get_webhook($project), $this->get_channel($project));
     }
